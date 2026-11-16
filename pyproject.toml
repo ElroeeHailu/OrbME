@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orbme"
+version = "0.1.0"
+description = "A from-scratch orbit propagator and satellite pass predictor, validated against SGP4."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "requests",
+    "plotly",
+    "matplotlib",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "sgp4",
+    "skyfield",
+    "jupyter",
+]
+
+[tool.setuptools]
+packages = ["orbme"]
