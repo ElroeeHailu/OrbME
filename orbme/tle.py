@@ -46,14 +46,14 @@ def parse_tle(name: str, line1:str, line2:str) -> TLE:
     mean_anomaly = math.radians(float(line2[43:51]))
     mean_motion = float(line2[52:63]) * 2 * math.pi / 86400
 
-    #epoch = _parse_epoch(line1)
+    epoch = _parse_epoch(line1)
 
     return TLE(
         name=name,
         line1 = line1,
         line2 = line2,
         norad_id=norad_id,
-        epoch=None,
+        epoch=epoch,
         inclination=inclination,
         raan=raan,
         eccentricity=eccentricity,
@@ -62,7 +62,12 @@ def parse_tle(name: str, line1:str, line2:str) -> TLE:
         mean_motion=mean_motion
     )
 
-#def _parse_epoch(line1: str) -> datetime:
+def _parse_epoch(line1: str) -> datetime:
+    year = int(line1[18:20])
+    year = 2000 + year if year < 57 else 1900 + year
+    day = float(line1[20:32])
+
+    return datetime(year, 1, 1, tzinfo=timezone.utc) + timedelta(days= day - 1)
 
 
 
